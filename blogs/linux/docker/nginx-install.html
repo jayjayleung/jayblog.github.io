@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Docker安装并配置Nginx | jayjay&#39;s blog</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    
+    <meta name="description" content="good good study, day day up">
+    
+    <link rel="preload" href="/assets/css/0.styles.8d6b692c.css" as="style"><link rel="preload" href="/assets/js/app.425be010.js" as="script"><link rel="preload" href="/assets/js/3.0b824db2.js" as="script"><link rel="preload" href="/assets/js/1.e4839bec.js" as="script"><link rel="preload" href="/assets/js/31.36c4d95d.js" as="script"><link rel="prefetch" href="/assets/js/10.d8d5216e.js"><link rel="prefetch" href="/assets/js/11.84a9acb3.js"><link rel="prefetch" href="/assets/js/12.52e9d0dd.js"><link rel="prefetch" href="/assets/js/13.69693e19.js"><link rel="prefetch" href="/assets/js/14.4e82a9b4.js"><link rel="prefetch" href="/assets/js/15.6ac56f55.js"><link rel="prefetch" href="/assets/js/16.198ce024.js"><link rel="prefetch" href="/assets/js/17.2541c120.js"><link rel="prefetch" href="/assets/js/18.cf4c660e.js"><link rel="prefetch" href="/assets/js/19.8ebba0fd.js"><link rel="prefetch" href="/assets/js/20.aab2c61e.js"><link rel="prefetch" href="/assets/js/21.c1d17943.js"><link rel="prefetch" href="/assets/js/22.7d954469.js"><link rel="prefetch" href="/assets/js/23.0ee4b86d.js"><link rel="prefetch" href="/assets/js/24.ff35fb37.js"><link rel="prefetch" href="/assets/js/25.76d6d77f.js"><link rel="prefetch" href="/assets/js/26.3d6354dc.js"><link rel="prefetch" href="/assets/js/27.8661f089.js"><link rel="prefetch" href="/assets/js/28.f56ef162.js"><link rel="prefetch" href="/assets/js/29.b1d14f29.js"><link rel="prefetch" href="/assets/js/30.9dc17aec.js"><link rel="prefetch" href="/assets/js/32.9b34d8c1.js"><link rel="prefetch" href="/assets/js/33.357fb4fd.js"><link rel="prefetch" href="/assets/js/34.45017b27.js"><link rel="prefetch" href="/assets/js/35.cf268b15.js"><link rel="prefetch" href="/assets/js/36.ad505633.js"><link rel="prefetch" href="/assets/js/37.a6ecb46f.js"><link rel="prefetch" href="/assets/js/38.cffea1b1.js"><link rel="prefetch" href="/assets/js/39.ec168317.js"><link rel="prefetch" href="/assets/js/4.f894335a.js"><link rel="prefetch" href="/assets/js/5.697287a6.js"><link rel="prefetch" href="/assets/js/6.b736c68d.js"><link rel="prefetch" href="/assets/js/7.a802cd7f.js"><link rel="prefetch" href="/assets/js/8.9201355d.js"><link rel="prefetch" href="/assets/js/9.79bf88ab.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.8d6b692c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container" data-v-5bb33761><div data-v-5bb33761><div class="password-shadow password-wrapper-out" style="display:none;" data-v-59e6cb88 data-v-5bb33761 data-v-5bb33761><h3 class="title" data-v-59e6cb88>jayjay's blog</h3> <p class="description" data-v-59e6cb88>good good study, day day up</p> <label id="box" class="inputBox" data-v-59e6cb88><input type="password" value="" data-v-59e6cb88> <span data-v-59e6cb88>Konck! Knock!</span> <button data-v-59e6cb88>OK</button></label> <div class="footer" data-v-59e6cb88><span data-v-59e6cb88><i class="iconfont reco-theme" data-v-59e6cb88></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-59e6cb88>vuePress-theme-reco</a></span> <span data-v-59e6cb88><i class="iconfont reco-copyright" data-v-59e6cb88></i> <a data-v-59e6cb88><span data-v-59e6cb88>jayjay</span>
+          
+        <span data-v-59e6cb88>2022 - </span>
+        2023
+      </a></span></div></div> <div class="hide" data-v-5bb33761><header class="navbar" data-v-5bb33761><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/logo.png" alt="jayjay's blog" class="logo"> <span class="site-name">jayjay's blog</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link"><i class="undefined"></i>
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/categories/go/" class="nav-link"><i class="undefined"></i>
+  go
+</a></li><li class="dropdown-item"><!----> <a href="/categories/linux/" class="nav-link"><i class="undefined"></i>
+  linux
+</a></li><li class="dropdown-item"><!----> <a href="/categories/hexo/" class="nav-link"><i class="undefined"></i>
+  hexo
+</a></li><li class="dropdown-item"><!----> <a href="/categories/other/" class="nav-link"><i class="undefined"></i>
+  other
+</a></li></ul></div></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  归档
+</a></div><div class="nav-item"><a href="/categories/linux/" class="nav-link"><i class="iconfont reco-document"></i>
+  文章
+</a></div><div class="nav-item"><a href="https://juejin.cn/user/1583723129876158" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-juejin"></i>
+  掘金
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-github"></i>
+      Git
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/jayjayleung" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="undefined"></i>
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://gitee.com/jayjay-coder" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="undefined"></i>
+  Gitee
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-5bb33761></div> <aside class="sidebar" data-v-5bb33761><div class="personal-info-wrapper" data-v-1fad0c41 data-v-5bb33761><img src="/avatar.png" alt="author-avatar" class="personal-img" data-v-1fad0c41> <h3 class="name" data-v-1fad0c41>
+    jayjay
+  </h3> <div class="num" data-v-1fad0c41><div data-v-1fad0c41><h3 data-v-1fad0c41>29</h3> <h6 data-v-1fad0c41>文章</h6></div> <div data-v-1fad0c41><h3 data-v-1fad0c41>6</h3> <h6 data-v-1fad0c41>标签</h6></div></div> <ul class="social-links" data-v-1fad0c41><li class="social-item" data-v-1fad0c41><i class="iconfont reco-github" style="color:#f8b26a;" data-v-1fad0c41></i></li><li class="social-item" data-v-1fad0c41><i class="iconfont reco-mayun" style="color:#f8b26a;" data-v-1fad0c41></i></li><li class="social-item" data-v-1fad0c41><i class="iconfont reco-juejin" style="color:#e15b64;" data-v-1fad0c41></i></li></ul> <hr data-v-1fad0c41></div> <nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link"><i class="undefined"></i>
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/categories/go/" class="nav-link"><i class="undefined"></i>
+  go
+</a></li><li class="dropdown-item"><!----> <a href="/categories/linux/" class="nav-link"><i class="undefined"></i>
+  linux
+</a></li><li class="dropdown-item"><!----> <a href="/categories/hexo/" class="nav-link"><i class="undefined"></i>
+  hexo
+</a></li><li class="dropdown-item"><!----> <a href="/categories/other/" class="nav-link"><i class="undefined"></i>
+  other
+</a></li></ul></div></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  标签
+</a></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  归档
+</a></div><div class="nav-item"><a href="/categories/linux/" class="nav-link"><i class="iconfont reco-document"></i>
+  文章
+</a></div><div class="nav-item"><a href="https://juejin.cn/user/1583723129876158" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-juejin"></i>
+  掘金
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-github"></i>
+      Git
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/jayjayleung" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="undefined"></i>
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://gitee.com/jayjay-coder" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="undefined"></i>
+  Gitee
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav> <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><a href="/" class="sidebar-heading clickable router-link-active open"><span>docker</span> <!----></a> <ul class="sidebar-links sidebar-group-items"><li><a href="/blogs/linux/docker/docker-install.html" class="sidebar-link">docker安装(centos7)</a></li><li><a href="/blogs/linux/docker/mysql-install.html" class="sidebar-link">docker安装mysql</a></li><li><a href="/blogs/linux/docker/redis-install.html" class="sidebar-link">docker安装redis</a></li><li><a href="/blogs/linux/docker/nginx-install.html" aria-current="page" class="active sidebar-link">docker安装nginx</a></li></ul></section></li></ul> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-59e6cb88 data-v-5bb33761><h3 class="title" data-v-59e6cb88>Docker安装并配置Nginx</h3> <!----> <label id="box" class="inputBox" data-v-59e6cb88><input type="password" value="" data-v-59e6cb88> <span data-v-59e6cb88>Konck! Knock!</span> <button data-v-59e6cb88>OK</button></label> <div class="footer" data-v-59e6cb88><span data-v-59e6cb88><i class="iconfont reco-theme" data-v-59e6cb88></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-59e6cb88>vuePress-theme-reco</a></span> <span data-v-59e6cb88><i class="iconfont reco-copyright" data-v-59e6cb88></i> <a data-v-59e6cb88><span data-v-59e6cb88>jayjay</span>
+          
+        <span data-v-59e6cb88>2022 - </span>
+        2023
+      </a></span></div></div> <div data-v-5bb33761><div data-v-5bb33761><main class="page"><section style="display:;"><div class="page-title"><h1 class="title">Docker安装并配置Nginx</h1> <div data-v-8a445198><i class="iconfont reco-account" data-v-8a445198><span data-v-8a445198>jayjay</span></i> <i class="iconfont reco-date" data-v-8a445198><span data-v-8a445198>2021/11/15</span></i> <i class="iconfont reco-eye" data-v-8a445198><span id="/blogs/linux/docker/nginx-install.html" data-flag-title="Your Article Title" class="leancloud-visitors" data-v-8a445198><a class="leancloud-visitors-count" style="font-size:.9rem;font-weight:normal;color:#999;"></a></span></i> <i class="tags iconfont reco-tag" data-v-8a445198><span class="tag-item" data-v-8a445198>docker</span></i></div></div> <div class="theme-reco-content content__default"><h2 id="在docker下载nginx镜像"><a href="#在docker下载nginx镜像" class="header-anchor">#</a> 在Docker下载Nginx镜像</h2> <div class="language-shell line-numbers-mode"><pre class="language-shell"><code><span class="token function">docker</span> pull nginx:latest
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h2 id="创建挂载目录"><a href="#创建挂载目录" class="header-anchor">#</a> 创建挂载目录</h2> <p>先在主机创建工作文件夹，为了挂载配置和静态文件的访问使用</p> <div class="language-shell line-numbers-mode"><pre class="language-shell"><code><span class="token function">mkdir</span> -p /home/nginx/<span class="token punctuation">{</span>conf,conf.d,html,logs<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h2 id="编写nginx-conf配置文件-并放在文件夹中"><a href="#编写nginx-conf配置文件-并放在文件夹中" class="header-anchor">#</a> 编写<code>nginx.conf</code>配置文件，并放在文件夹中</h2> <div class="language-lua line-numbers-mode"><pre class="language-lua"><code>
+user  nginx<span class="token punctuation">;</span>
+worker_processes  auto<span class="token punctuation">;</span>
+
+error_log  <span class="token operator">/</span>var<span class="token operator">/</span>log<span class="token operator">/</span>nginx<span class="token operator">/</span>error<span class="token punctuation">.</span>log notice<span class="token punctuation">;</span>
+pid        <span class="token operator">/</span>var<span class="token operator">/</span>run<span class="token operator">/</span>nginx<span class="token punctuation">.</span>pid<span class="token punctuation">;</span>
+
+
+<span class="token function">events</span> <span class="token punctuation">{</span>
+    worker_connections  <span class="token number">1024</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+
+<span class="token function">http</span> <span class="token punctuation">{</span>
+    include       <span class="token operator">/</span>etc<span class="token operator">/</span>nginx<span class="token operator">/</span>mime<span class="token punctuation">.</span>types<span class="token punctuation">;</span>
+    default_type  application<span class="token operator">/</span>octet<span class="token operator">-</span>stream<span class="token punctuation">;</span>
+
+    log_format  main  <span class="token string">'$remote_addr - $remote_user [$time_local] &quot;$request&quot; '</span>
+                      <span class="token string">'$status $body_bytes_sent &quot;$http_referer&quot; '</span>
+                      <span class="token string">'&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;'</span><span class="token punctuation">;</span>
+
+    access_log  <span class="token operator">/</span>var<span class="token operator">/</span>log<span class="token operator">/</span>nginx<span class="token operator">/</span>access<span class="token punctuation">.</span>log  main<span class="token punctuation">;</span>
+
+    sendfile        on<span class="token punctuation">;</span>
+    <span class="token operator">#</span>tcp_nopush     on<span class="token punctuation">;</span>
+
+    keepalive_timeout  <span class="token number">65</span><span class="token punctuation">;</span>
+
+    <span class="token operator">#</span>gzip  on<span class="token punctuation">;</span>
+
+    include <span class="token operator">/</span>etc<span class="token operator">/</span>nginx<span class="token operator">/</span>conf<span class="token punctuation">.</span>d<span class="token operator">/</span><span class="token operator">*</span><span class="token punctuation">.</span>conf<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br></div></div><p>也可以启动nginx容器来复制</p> <div class="language-shell line-numbers-mode"><pre class="language-shell"><code><span class="token comment">#启动一个容器</span>
+<span class="token function">docker</span> run -d --name nginx nginx
+<span class="token comment"># 查看 容器 获取容器ID 或直接使用名字</span>
+<span class="token function">docker</span> container <span class="token function">ls</span>
+<span class="token comment"># 拷贝容器内 Nginx 默认配置文件到本地当前(nginx)目录下的 conf 目录（$PWD 当前全路径）</span>
+<span class="token function">docker</span> <span class="token function">cp</span> nginx:/etc/nginx/nginx.conf <span class="token environment constant">$PWD</span>/conf
+<span class="token function">docker</span> <span class="token function">cp</span> nginx:/etc/nginx/conf.d <span class="token environment constant">$PWD</span>/conf
+
+<span class="token comment"># 停止容器</span>
+<span class="token function">docker</span> container stop nginx
+ <span class="token comment">#or</span>
+<span class="token function">docker</span> stop nginx
+<span class="token comment"># 删除容器</span>
+<span class="token function">docker</span> container <span class="token function">rm</span> nginx
+ <span class="token comment">#or</span>
+<span class="token function">docker</span> <span class="token function">rm</span> nginx
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br></div></div><h2 id="启动容器"><a href="#启动容器" class="header-anchor">#</a> 启动容器</h2> <div class="language-shell line-numbers-mode"><pre class="language-shell"><code><span class="token function">docker</span> run --restart<span class="token operator">=</span>always  --privileged<span class="token operator">=</span>true -d -p <span class="token number">80</span>:80 -p <span class="token number">443</span>:443 --name nginx  -v /home/nginx/html:/usr/share/nginx/html  -v /home/nginx/conf.d:/etc/nginx/conf.d -v /home/nginx/logs:/var/log/nginx  nginx  
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>如果挂载<code>ngxinx.conf</code>文件用下面的命令启动，注意，要保证你挂载的目录下有<code>nginx.conf</code>文件，否则会报错</p> <div class="language-shell line-numbers-mode"><pre class="language-shell"><code><span class="token function">docker</span> run --restart<span class="token operator">=</span>always  --privileged<span class="token operator">=</span>true -d -p <span class="token number">80</span>:80 -p <span class="token number">443</span>:443 --name nginx -v /home/nginx/conf/nginx.conf:/etc/nginx/nginx.conf -v /home/nginx/html:/usr/share/nginx/html  -v /home/nginx/conf.d:/etc/nginx/conf.d -v /home/nginx/logs:/var/log/nginx  nginx 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h2 id="查看启动的容器"><a href="#查看启动的容器" class="header-anchor">#</a> 查看启动的容器</h2> <div class="language-shell line-numbers-mode"><pre class="language-shell"><code><span class="token function">docker</span> <span class="token function">ps</span> 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>访问80端口查看是否成功，如果能出来页面就成功了</p></div></section> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev"><a href="/blogs/linux/docker/redis-install.html" class="prev">
+          docker安装redis
+        </a></span> <!----></p></div> <div class="comments-wrapper"><!----></div> <ul class="side-bar sub-sidebar-wrapper" style="width:12rem;" data-v-ac050c62><li class="level-2" data-v-ac050c62><a href="/blogs/linux/docker/nginx-install.html#在docker下载nginx镜像" class="sidebar-link reco-side-在docker下载nginx镜像" data-v-ac050c62>在Docker下载Nginx镜像</a></li><li class="level-2" data-v-ac050c62><a href="/blogs/linux/docker/nginx-install.html#创建挂载目录" class="sidebar-link reco-side-创建挂载目录" data-v-ac050c62>创建挂载目录</a></li><li class="level-2" data-v-ac050c62><a href="/blogs/linux/docker/nginx-install.html#编写nginx-conf配置文件-并放在文件夹中" class="sidebar-link reco-side-编写nginx-conf配置文件-并放在文件夹中" data-v-ac050c62>编写nginx.conf配置文件，并放在文件夹中</a></li><li class="level-2" data-v-ac050c62><a href="/blogs/linux/docker/nginx-install.html#启动容器" class="sidebar-link reco-side-启动容器" data-v-ac050c62>启动容器</a></li><li class="level-2" data-v-ac050c62><a href="/blogs/linux/docker/nginx-install.html#查看启动的容器" class="sidebar-link reco-side-查看启动的容器" data-v-ac050c62>查看启动的容器</a></li></ul></main></div> <!----></div></div></div></div><div class="global-ui"><div id="live2d-widget" class="live2d-widget-container" style="position:fixed;right:65px;bottom:0px;width:135px;height:300px;z-index:99999;opacity:0.8;pointer-events:none;"><canvas id="live2d_canvas" width="135" height="300" class="live2d_canvas" style="position:absolute;left:0px;top:0px;width:135px;height:300px;"></canvas></div><div id="goTop" class="hide-cat" data-v-bf92849a></div></div></div>
+    <script src="/assets/js/app.425be010.js" defer></script><script src="/assets/js/3.0b824db2.js" defer></script><script src="/assets/js/1.e4839bec.js" defer></script><script src="/assets/js/31.36c4d95d.js" defer></script>
+  </body>
+</html>
